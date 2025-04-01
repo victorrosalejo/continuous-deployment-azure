@@ -59,7 +59,6 @@ public class PostControllerTest {
 		createPostAux("Michel", "Vendo moto roja", "Muy barata");
 
 		// THEN
-		this.wait.until(ExpectedConditions.textToBe(By.id("message"), "Post has been saved"));
 		driver.findElement(By.linkText("Back to board")).click();
 		this.wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Michel - Vendo moto roja")));
 	}
@@ -110,6 +109,7 @@ public class PostControllerTest {
 		driver.findElement(By.name("text")).sendKeys(text);
 
 		driver.findElement(By.id("save-post")).click();
+		this.wait.until(ExpectedConditions.textToBe(By.id("message"), "Post has been saved"));
 	}
 
 }
