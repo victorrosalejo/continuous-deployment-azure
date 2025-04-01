@@ -89,7 +89,7 @@ public class PostControllerTest {
 
 		// WHEN
 		createPostAux("Ivan", "Vendo moto azul", "Muy barata");
-		takeScreenshot("after-create-post.png");
+		
 		driver.findElement(By.linkText("Back to board")).click();
 		driver.findElement(By.partialLinkText("Vendo moto azul")).click();
 		driver.findElement(By.id("delete-post")).click();
@@ -113,14 +113,4 @@ public class PostControllerTest {
 		driver.findElement(By.id("save-post")).click();
 	}
 
-	private void takeScreenshot(String name) {
-		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		File destFile = new File("target/" + name);
-		try {
-			Files.copy(screenshot, destFile);
-			System.out.println("Screenshot saved to: " + destFile.getAbsolutePath());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 }
