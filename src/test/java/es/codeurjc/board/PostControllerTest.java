@@ -100,7 +100,6 @@ public class PostControllerTest {
 		assertThrows(NoSuchElementException.class, () -> {
 			driver.findElement(By.linkText("Ivan - Vendo moto azul"));
 		});
-
 	}
 
 	private void createPostAux(String username, String title, String text) {
