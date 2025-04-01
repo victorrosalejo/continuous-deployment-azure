@@ -1,6 +1,6 @@
 # Despliegue continuo en Azure
 
-Este proyecto consta de un servidor WEB sencillo para la gestión de posts (posts).
+Este proyecto consta de un servidor WEB sencillo para la gestión de posts (anuncios).
 
 ## Despliegue en Azure (local)
 
@@ -25,27 +25,32 @@ Creamos nuestra aplicación lanzando un contenedor a partir de la imagen `maes95
 
 ```
 az container create \
-    --os-type Linux \
     --resource-group posts-group \
-    --name urjc-posts \
+    --name posts-michel \
+    --image maes95/posts:v1 \
     --registry-login-server index.docker.io \
     --registry-username $DOCKERHUB_USERNAME \
     --registry-password $DOCKERHUB_READ_TOKEN \
-    --image maes95/posts:v1 \
-    --dns-name-label urjc-posts \
+    --dns-name-label posts-michel \
+    --ports 8080 \
+    --os-type Linux \
     --cpu 1 \
-    --memory 1 \
-    --ports 8080
+    --memory 1
 ```
 
-La URL dónde podremos acceder a la aplicación será: urjc-posts.westeurope.azurecontainer.io:8080
+La URL dónde podremos acceder a la aplicación será: posts-michel.spaincentral.azurecontainer.io
 
 Podemos ver el estado de nuestra aplicación con el siguiente comando
 ```
 az container show  \
     --resource-group posts-group \
-    --name urjc-posts \
+    --name posts-michel \
     --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" \
     --out table
+```
+
+Podemos revisar los logs utilizando el siguiente comando:
+```
+az container attach --resource-group posts-group --name posts-michel
 ```
 
