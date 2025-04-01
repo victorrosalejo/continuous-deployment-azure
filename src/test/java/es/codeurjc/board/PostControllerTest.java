@@ -2,8 +2,6 @@ package es.codeurjc.board;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 
 import org.junit.jupiter.api.AfterEach;
@@ -12,8 +10,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -21,8 +17,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-
-import com.google.common.io.Files;
 
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PostControllerTest {
@@ -59,6 +53,7 @@ public class PostControllerTest {
 		createPostAux("Michel", "Vendo moto roja", "Muy barata");
 
 		// THEN
+		this.wait.until(ExpectedConditions.textToBe(By.id("message"), "Post has been saved"));
 		driver.findElement(By.linkText("Back to board")).click();
 		this.wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Michel - Vendo moto roja")));
 	}
@@ -88,6 +83,7 @@ public class PostControllerTest {
 
 		// WHEN
 		createPostAux("Ivan", "Vendo moto azul", "Muy barata");
+		this.wait.until(ExpectedConditions.textToBe(By.id("message"), "Post has been saved"));
 		
 		driver.findElement(By.linkText("Back to board")).click();
 		driver.findElement(By.partialLinkText("Vendo moto azul")).click();
@@ -109,7 +105,6 @@ public class PostControllerTest {
 		driver.findElement(By.name("text")).sendKeys(text);
 
 		driver.findElement(By.id("save-post")).click();
-		this.wait.until(ExpectedConditions.textToBe(By.id("message"), "Post has been saved"));
 	}
 
 }
