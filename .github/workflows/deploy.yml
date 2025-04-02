@@ -46,12 +46,12 @@ jobs:
         run: |
           az container create \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --name posts-michel \
-            --image maes95/posts:latest \
+            --name posts \
+            --image ${{ secrets.DOCKERHUB_USERNAME }}/posts:latest \
             --registry-login-server index.docker.io \
             --registry-username ${{ secrets.DOCKERHUB_USERNAME }} \
             --registry-password ${{ secrets.DOCKERHUB_READ_TOKEN }} \
-            --dns-name-label posts-michel \
+            --dns-name-label posts-${{ secrets.DOCKERHUB_USERNAME }} \
             --ports 8080 \
             --os-type Linux \
             --cpu 1 \
