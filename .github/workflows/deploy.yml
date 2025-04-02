@@ -45,7 +45,7 @@ jobs:
       - name: 'Run az commands to deploy container'
         run: |
           az container create \
-            --resource-group ${{ secrets.AZURE_GROUP }} \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --name posts-michel \
             --image maes95/posts:latest \
             --registry-login-server index.docker.io \
