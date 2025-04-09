@@ -21,7 +21,7 @@ public class Post {
 	public Long getId() {
 		return id;
 	}
-	
+	 
 	public void setId(long id) {
 		this.id = id;
 	}
